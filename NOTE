@@ -1,0 +1,84 @@
+php artisan make:controller ArticlesController -r
+create api route
+create model
+create seeder
+create factory
+create migration
+migrate database
+seed database
+make article resource
+import the namespace and use it in articles controller and use it with pagination
+go to route in the browser
+ 
+
+delete yarn.lock file and package.json file
+go to resources and delete the js folder
+
+or do 
+
+rm -rf package.json webpack.mix.js yarn.lock resources/assetsCreate Laravel Project
+
+laravel new my-project
+cd my-project
+
+# remove existing frontend scaffold
+rm -rf package.json webpack.mix.js yarn.lock resources/assets
+Create a Vue CLI 3 project in the Laravel app
+
+vue create frontend
+# pick router
+Configure Vue project
+
+Create frontend/vue.config.js:
+
+module.exports = {
+  // proxy API requests to Valet during development
+  devServer: {
+    proxy: 'http://laracon.test'
+  },
+
+  // output built static files to Laravel's public dir.
+  // note the "build" script in package.json needs to be modified as well.
+  outputDir: '../public',
+
+  // modify the location of the generated HTML file.
+  // make sure to do this only in production.
+  indexPath: process.env.NODE_ENV === 'production'
+    ? '../resources/views/index.blade.php'
+    : 'index.html'
+}
+Edit frontend/package.json:
+
+"scripts": {
+  "serve": "vue-cli-service serve",
+- "build": "vue-cli-service build",
++ "build": "rm -rf ../public/{js,css,img} && vue-cli-service build --no-clean",
+  "lint": "vue-cli-service lint"
+},
+Configure Laravel for single-page app.
+
+routes/web.php
+
+<?php
+
+Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+app/Http/Controllers/SpaController.php
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class SpaController extends Controller
+{
+    public function index()
+    {
+        return view('index');
+    }
+}
+
+
+
+
+
